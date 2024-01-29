@@ -1,0 +1,110 @@
+{
+  "Uuid": "d19b27b2-f424-4cbb-be77-1fcbd1b9b7e0",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "move_room_tags_to_center_v1_script",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\n\r\nclr.AddReference('RevitAPI')\r\nclr.AddReference('RevitAPIUI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB import Transaction\r\nfrom Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory\r\nfrom Autodesk.Revit.DB.Architecture import Room\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n# this is the completly wrong approach for what I need.\r\n# This gets all tags from the current fiew and then finds the room from the tag. \r\n# There's a race condition here, the tags don't have the udpated room location points\r\n\r\n# instead could I do it in reverse? Get the rooms and then find the tag\r\n\r\nroom_list = []\r\ndef tags_to_room_center():\r\n    # TESTED REVIT API:\r\n    # 2022.1\r\n    # __author__ = Matt Vogel & @gtalarico\r\n    # __version__ = '0.0.2'\r\n\r\n    ###########################################################################\r\n    # TAG COLLECTOR [IN VIEW BY: doc.ActiveView.Id]\r\n    room_tags = FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(\r\n                BuiltInCategory.OST_RoomTags).WhereElementIsNotElementType().\\\r\n                ToElements()\r\n    ###########################################################################\r\n\r\n    transaction = Transaction(doc, 'Move Room Tags on Room Points')\r\n    transaction.Start()\r\n    for room_tag in room_tags:\r\n        room_tag_pt = room_tag.Location.Point\r\n        room = room_tag.Room\r\n        room_pt = room.Location.Point\r\n        new_x = room_pt.X - room_tag_pt.X\r\n        new_y = room_pt.Y - room_tag_pt.Y\r\n        new_z = room_pt.Z - room_tag_pt.Z\r\n\r\n        translation = XYZ(new_x, new_y, new_z)\r\n        room_tag.Location.Move(translation)\r\n\r\n    transaction.Commit()\r\n\r\ntags_to_room_center()",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "69c7655c88b449029f78e4fc010d80d2",
+      "Inputs": [
+        {
+          "Id": "ebece988f5a54b10a81f5301e8fb3a80",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ebda01bf933d4a6b9a92b9946be09cda",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    }
+  ],
+  "Connectors": [],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "1.10",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.1.8246",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "69c7655c88b449029f78e4fc010d80d2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 452.8,
+        "Y": 302.4
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

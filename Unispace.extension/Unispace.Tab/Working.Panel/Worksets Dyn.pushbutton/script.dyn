@@ -1,0 +1,309 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "script",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"00_BASEBUILD\", \"01_FLOOR\", \"02_WALL\", \"03_JOINERY\", \"04_FFE\", \"05_ENTOURAGE\", \"Z_Linked_ARCH\", \"Z_Linked_MEP\", \"Z_Linked_STRUC\", \"Z_Linked_CAD\"];",
+      "Id": "fdb18c7568774f92a8a05e7e3a28432e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "758915aeb74b4b3386be69d49018fb49",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"06_MASSING\"];",
+      "Id": "20f49bf07f88420dab26a6557e70ad83",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "468e44ea684444388342505d5ccd33a4",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "789089774bee4cf89015564da8292203",
+      "Inputs": [
+        {
+          "Id": "75849a08189f403aacea43f7d6be2c0c",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0334e1ae753643d78f5490f53b58ad4e",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the node's output"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"99_LEVELS & GRIDS\"];",
+      "Id": "f6a1c24c4101493597ece6a115c4891d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c85b877794db4c7c92c23fef944956ee",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "d485c0d6-d151-47ff-95fb-4d9c38520b5f",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "de233828ba9e46f5a9abd970bf0e39ad",
+      "Inputs": [
+        {
+          "Id": "23709c1566c74b579ba559772e5af9a0",
+          "Name": "newWorksetNames",
+          "Description": "List of worksets to be created\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f449827da70f4524b7b0b019765b672f",
+          "Name": "sharedLevelsAndGridName",
+          "Description": "New name for Shared Levels and Grids\n\nstring\nDefault value : \"Shared Levels & Grids\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "84094f41988a45148b3b8b3f89a25826",
+          "Name": "workset1Name",
+          "Description": "New name of Workset1\n\nstring\nDefault value : \"Workset1\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7e3a92b0f28c4ff0bbeac1bd06509747",
+          "Name": "workset",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": ""
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "758915aeb74b4b3386be69d49018fb49",
+      "End": "23709c1566c74b579ba559772e5af9a0",
+      "Id": "5c7cd0c7f2f54aefac48d7d6e552318c"
+    },
+    {
+      "Start": "468e44ea684444388342505d5ccd33a4",
+      "End": "f449827da70f4524b7b0b019765b672f",
+      "Id": "6b512606919e401dba7a3aa99fc3b3c1"
+    },
+    {
+      "Start": "c85b877794db4c7c92c23fef944956ee",
+      "End": "84094f41988a45148b3b8b3f89a25826",
+      "Id": "7ad053288b1a45838c9598a00d6486c4"
+    },
+    {
+      "Start": "7e3a92b0f28c4ff0bbeac1bd06509747",
+      "End": "75849a08189f403aacea43f7d6be2c0c",
+      "Id": "41f5279fa7424996b270db3666b6509e"
+    }
+  ],
+  "Dependencies": [
+    "d485c0d6-d151-47ff-95fb-4d9c38520b5f"
+  ],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "ParametricMonkey",
+      "Version": "1.3.6",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "de233828ba9e46f5a9abd970bf0e39ad"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "1.10",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.1.8246",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "fdb18c7568774f92a8a05e7e3a28432e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -449.40968599812936,
+        "Y": -176.77076911958667
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "20f49bf07f88420dab26a6557e70ad83",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 78.67547736841351,
+        "Y": -27.736979086453289
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "789089774bee4cf89015564da8292203",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 843.28075850590312,
+        "Y": 33.992588049690085
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f6a1c24c4101493597ece6a115c4891d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 24.338272278432726,
+        "Y": 103.11795902209252
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Workset.CreateAndRenameDefault",
+        "Id": "de233828ba9e46f5a9abd970bf0e39ad",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 394.6958376779055,
+        "Y": -126.41396440020253
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "e969f88b29d343d78534753519a5b342",
+        "Title": "Install Parametric Monkey Package",
+        "Nodes": [
+          "fdb18c7568774f92a8a05e7e3a28432e",
+          "20f49bf07f88420dab26a6557e70ad83",
+          "789089774bee4cf89015564da8292203",
+          "f6a1c24c4101493597ece6a115c4891d",
+          "de233828ba9e46f5a9abd970bf0e39ad"
+        ],
+        "Left": -459.40968599812936,
+        "Top": -229.97076911958669,
+        "Width": 1522.2904445040324,
+        "Height": 541.3633571692767,
+        "FontSize": 36.0,
+        "InitialTop": -176.77076911958667,
+        "InitialHeight": 424.88872814167917,
+        "TextblockHeight": 43.2,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 434.89754511649949,
+    "Y": 482.23775319446946,
+    "Zoom": 0.48201904720803979
+  }
+}

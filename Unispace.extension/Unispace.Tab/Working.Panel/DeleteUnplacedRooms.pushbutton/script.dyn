@@ -1,0 +1,615 @@
+{
+  "Uuid": "5a615b5f-102c-49de-9e00-db41cd0c2a61",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "script",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Revit.Category": {
+        "Key": "Revit.Elements.Category",
+        "Value": "RevitNodes.dll"
+      },
+      "Revit.Elements.Category": {
+        "Key": "Revit.Elements.Category",
+        "Value": "RevitNodes.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Revit.Category.ByName(\"Rooms\");",
+      "Id": "b1bbd7cf822e4054a8a5a7071da7a06c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d7a85bdd737b4ee39ca4c1a53e73d2b9",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfCategory, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "Id": "ce1d520af2534564bd351fa4b1c53fd8",
+      "Inputs": [
+        {
+          "Id": "11c1bd8b88504716b1a9effc4ab28dd5",
+          "Name": "Category",
+          "Description": "The Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cfeb818a6c2b48708a17e5aa5c62816d",
+          "Name": "Elements",
+          "Description": "An element type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Get all elements of the specified category from the model."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Room.Area",
+      "Id": "b591edf752da44859e9bee0bfb933e18",
+      "Inputs": [
+        {
+          "Id": "2aa085c793f94daaad2c7e1187239c99",
+          "Name": "room",
+          "Description": "Revit.Elements.Room",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "33250b8a96bb4a01991a5a4a71c2a994",
+          "Name": "double",
+          "Description": "double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get room area\n\nRoom.Area: double"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "area==0;",
+      "Id": "f2bbaf6290b8428bb228882d369ac1aa",
+      "Inputs": [
+        {
+          "Id": "ce2918222676477ea9fa625e1627adc2",
+          "Name": "area",
+          "Description": "area",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "43bbcd888e6f4dfb9e226d9e923f618a",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.FilterByBoolMask@var[]..[],var[]..[]",
+      "Id": "04a4cbf340874da48eb4a79a42d516e8",
+      "Inputs": [
+        {
+          "Id": "0bf13946b651488e895d1b54d4e03ddf",
+          "Name": "list",
+          "Description": "List to filter.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "95dae24c59c147a698add76b615fb642",
+          "Name": "mask",
+          "Description": "List of booleans representing a mask.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fdcccf52b3bb4e65af53533d7263fbc7",
+          "Name": "in",
+          "Description": "Items whose mask index is true.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c46e93ce6a8c47818a7d1af03dc0e407",
+          "Name": "out",
+          "Description": "Items whose mask index is false.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Filters a sequence by looking up corresponding indices in a separate list of booleans.\n\nList.FilterByBoolMask (list: var[]..[], mask: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "609baabcd1b84fff96b01f1749b0a1d3",
+      "Inputs": [
+        {
+          "Id": "d44d36b20c8f49c899bf6762a8444e47",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "70258144ec434072bf5412f0e0cedb4c",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the node's output"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.Delete@Revit.Elements.Element",
+      "Id": "8e23bfb5b3af4d47af8ba7e2ae2b558e",
+      "Inputs": [
+        {
+          "Id": "f2e47863608449248e3af472561b9566",
+          "Name": "element",
+          "Description": "The element to delete.\n\nElement",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "20211b933d744600a293949342d61e9d",
+          "Name": "int[]",
+          "Description": "The list of element id's deleted, including any dependent elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Delete the element and any elements that are totally dependent upon the element.\n\nElement.Delete (element: Element): int[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "x==true?pass:null;",
+      "Id": "24ff3a04ae3b431aad19253aae3541d7",
+      "Inputs": [
+        {
+          "Id": "8057d12554564ee7ac3fb0d93c5e7c34",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f16350bae4ef43e18108f0597a60dcd1",
+          "Name": "pass",
+          "Description": "pass",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ebb7df0759b84727ba090d2f265a7c37",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Room.Name",
+      "Id": "0df531c865e34c2a9ddb71dd319c35eb",
+      "Inputs": [
+        {
+          "Id": "e074f30ae1f946fdbc7f2e5c4171bd73",
+          "Name": "room",
+          "Description": "Revit.Elements.Room",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a9d4689547cd40e2be6e11bb0db42e47",
+          "Name": "string",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get room name\n\nRoom.Name: string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Room.Number",
+      "Id": "7204236f90a44679b5fc2d86d872e599",
+      "Inputs": [
+        {
+          "Id": "998d28c3632f4051b688f5c35e512306",
+          "Name": "room",
+          "Description": "Revit.Elements.Room",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "485b3750aad748acb7cb344ff0603951",
+          "Name": "string",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get room number\n\nRoom.Number: string"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "01f53811a2b34d1c9754a1e9bed18eb4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "504e286f4c2f4739b8b308781eabb7ea",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d7a85bdd737b4ee39ca4c1a53e73d2b9",
+      "End": "11c1bd8b88504716b1a9effc4ab28dd5",
+      "Id": "ac152454826c466a93c9acd5e7e046b9"
+    },
+    {
+      "Start": "cfeb818a6c2b48708a17e5aa5c62816d",
+      "End": "2aa085c793f94daaad2c7e1187239c99",
+      "Id": "410d1b5657cb422794ed9cfa9646ad2a"
+    },
+    {
+      "Start": "cfeb818a6c2b48708a17e5aa5c62816d",
+      "End": "0bf13946b651488e895d1b54d4e03ddf",
+      "Id": "2224f3a0a9b34b8b9e7914e6ef741354"
+    },
+    {
+      "Start": "33250b8a96bb4a01991a5a4a71c2a994",
+      "End": "ce2918222676477ea9fa625e1627adc2",
+      "Id": "a3fd87bcb2d643f5af710fd11daa371c"
+    },
+    {
+      "Start": "43bbcd888e6f4dfb9e226d9e923f618a",
+      "End": "95dae24c59c147a698add76b615fb642",
+      "Id": "89383a706c454ff89e27d8e986b79e95"
+    },
+    {
+      "Start": "fdcccf52b3bb4e65af53533d7263fbc7",
+      "End": "d44d36b20c8f49c899bf6762a8444e47",
+      "Id": "09a95d6850ef460db6709dbcac587424"
+    },
+    {
+      "Start": "70258144ec434072bf5412f0e0cedb4c",
+      "End": "998d28c3632f4051b688f5c35e512306",
+      "Id": "a09c2d8468d34c6babda1a50539c8d9f"
+    },
+    {
+      "Start": "70258144ec434072bf5412f0e0cedb4c",
+      "End": "e074f30ae1f946fdbc7f2e5c4171bd73",
+      "Id": "cf775eb67375497eb81e7ae252e5955a"
+    },
+    {
+      "Start": "70258144ec434072bf5412f0e0cedb4c",
+      "End": "f16350bae4ef43e18108f0597a60dcd1",
+      "Id": "abdb2e3e65b64e0d8ab3a7921026725d"
+    },
+    {
+      "Start": "ebb7df0759b84727ba090d2f265a7c37",
+      "End": "f2e47863608449248e3af472561b9566",
+      "Id": "9eb08418b8c74fe4b5327f9863e33fd6"
+    },
+    {
+      "Start": "504e286f4c2f4739b8b308781eabb7ea",
+      "End": "8057d12554564ee7ac3fb0d93c5e7c34",
+      "Id": "faf84ac8575643819858b70020d0bc92"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": null,
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "1.10",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.1.8246",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "b1bbd7cf822e4054a8a5a7071da7a06c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 205.0,
+        "Y": 195.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "All Elements of Category",
+        "Id": "ce1d520af2534564bd351fa4b1c53fd8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 546.0,
+        "Y": 192.5
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Room.Area",
+        "Id": "b591edf752da44859e9bee0bfb933e18",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 761.0,
+        "Y": 260.5
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f2bbaf6290b8428bb228882d369ac1aa",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1016.0,
+        "Y": 265.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List.FilterByBoolMask",
+        "Id": "04a4cbf340874da48eb4a79a42d516e8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1217.0,
+        "Y": 193.5
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Rooms To Delete",
+        "Id": "609baabcd1b84fff96b01f1749b0a1d3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1465.105844665849,
+        "Y": 195.08405623163344
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Element.Delete",
+        "Id": "8e23bfb5b3af4d47af8ba7e2ae2b558e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2576.4213136599096,
+        "Y": 175.56779212298233
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "24ff3a04ae3b431aad19253aae3541d7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2326.4213136599096,
+        "Y": 178.06779212298233
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Room.Name",
+        "Id": "0df531c865e34c2a9ddb71dd319c35eb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1813.105844665849,
+        "Y": 352.58405623163344
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Room.Number",
+        "Id": "7204236f90a44679b5fc2d86d872e599",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1815.9297810566813,
+        "Y": 97.7601198408006
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "01f53811a2b34d1c9754a1e9bed18eb4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2141.4213136599096,
+        "Y": 135.06779212298233
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "551c645ac302412d9042dc04fa7b02bc",
+        "Title": "Check Elements to Delete",
+        "Nodes": [
+          "609baabcd1b84fff96b01f1749b0a1d3",
+          "0df531c865e34c2a9ddb71dd319c35eb",
+          "7204236f90a44679b5fc2d86d872e599"
+        ],
+        "Left": 1455.105844665849,
+        "Top": 44.560119840800596,
+        "Width": 556.4239363908323,
+        "Height": 427.92393639083281,
+        "FontSize": 36.0,
+        "InitialTop": 97.7601198408006,
+        "InitialHeight": 399.82393639083284,
+        "TextblockHeight": 43.2,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "60160d815bcd47f688232ce2c25f78e8",
+        "Title": "Set to True to Delete Elements on Rerunning the Script",
+        "Nodes": [
+          "8e23bfb5b3af4d47af8ba7e2ae2b558e",
+          "24ff3a04ae3b431aad19253aae3541d7",
+          "01f53811a2b34d1c9754a1e9bed18eb4"
+        ],
+        "Left": 2131.4213136599096,
+        "Top": 38.66779212298232,
+        "Width": 647.80000000000018,
+        "Height": 241.6,
+        "FontSize": 36.0,
+        "InitialTop": 135.06779212298233,
+        "InitialHeight": 188.0,
+        "TextblockHeight": 86.4,
+        "Background": "#FFFFB8D8"
+      }
+    ],
+    "X": -8.20101786798432,
+    "Y": 120.01212525176123,
+    "Zoom": 0.61995271874173485
+  }
+}
