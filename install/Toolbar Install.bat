@@ -1,27 +1,24 @@
 @echo off
-setlocal
 
-set "JSON_FILE=%appdata%\pyRevit-Master\extensions\extensions.json"
+REM This is a Windows Batch script to install a private pyRevit extension
+REM Docs found here https://pyrevitlabs.notion.site/Manage-pyRevit-extensions-fa853768e94240b5b59803e5d7171be3
 
-:: Execute the PowerShell commands directly
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-    "$json = Get-Content -Path '%JSON_FILE%' -Raw | ConvertFrom-Json; " ^
-    "$newObject = [PSCustomObject]@{ " ^
-        "builtin='False'; " ^
-        "default_enabled='True'; " ^
-        "type='extension'; " ^
-        "rocket_mode_compatible='True'; " ^
-        "name='Unispace Toolbar'; " ^
-        "description='Set of custom tools for Unispace.'; " ^
-        "author='Matt Vogel'; " ^
-        "author_profile='https://www.linkedin.com/in/matthewtvogel'; " ^
-        "url='https://github.com/Unispace365/revit-unispace-toolbar.git'; " ^
-        "website='https://github.com/Unispace365/revit-unispace-toolbar'; " ^
-        "image=''; " ^
-        "templates=@{author=''; docpath=''}; " ^
-        "dependencies=@(); " ^
-    "}; " ^
-    "$json.extensions += $newObject; " ^
-    "$json | ConvertTo-Json -Depth 10 | Set-Content -Path '%JSON_FILE%'"
+REM Define variables
+set command_name=extend
+set extension_type=ui
+set extension_name=Unispace
+set repository_url=https://github.com/Unispace365/revit-unispace-toolbar.git
+set username=SET_GITHUB_USERNAME_HERE
+set token=SET_GITHUB_TOKEN_HERE
+set branch=main
 
-endlocal
+REM Build the command
+set pyrevit_command=pyrevit %command_name% %extension_type% %extension_name% "%repository_url%" --username="%username%" --token="%token%" --branch="%branch%"
+
+REM Print the command to the console
+echo Running command: %pyrevit_command%
+
+REM Run the command
+%pyrevit_command%
+
+REM End of the script
