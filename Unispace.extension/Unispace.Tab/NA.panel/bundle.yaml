@@ -2,3 +2,5 @@ layout:
   - move_room_tags_to_center
   - -----
   - Renumber
+  - -----
+  - move_door_tags_to_center
