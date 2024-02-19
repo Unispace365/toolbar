@@ -1,6 +1,7 @@
 layout:
-  - move_room_tags_to_center
+  - col1
   - -----
   - Renumber
   - -----
-  - move_door_tags_to_center
+  - select_enscape_assets
+  - rotate_enscape_assets
