@@ -1,3 +1,4 @@
 title: Center Room Tags
 tooltip: Centers all room tags in the current view on its room.
 author: Matt Vogel
+stack: col1
