@@ -7,6 +7,7 @@ clr.AddReference('RevitAPIUI')
 from Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory, ViewSheet, ViewType, Transaction, LinePatternElement, Line, XYZ, DetailLine, ElementId, Viewport, BuiltInParameter, Color
 from Autodesk.Revit.UI import TaskDialog
 from Autodesk.Revit.UI import TaskDialogCommonButtons, TaskDialogResult
+from collections import defaultdict
 
 # Function to convert inches to feet
 def inches_to_feet(inches):
@@ -105,7 +106,10 @@ def renumber_viewports(doc, viewports, grid_width, grid_height, cell_width, cell
 
     # Calculate effective grid width considering the use of the first column for notes
     effective_grid_width = grid_width - 1 if use_first_column else grid_width
-
+    
+    # Dictionary to hold the new numbers and their corresponding viewports
+    new_numbers = defaultdict(list)
+    
     # Assign dummy numbers to all viewports to avoid clashes during renumbering
     for i, vp in enumerate(viewports):
         detail_number_param = vp.LookupParameter("Detail Number")
@@ -138,10 +142,24 @@ def renumber_viewports(doc, viewports, grid_width, grid_height, cell_width, cell
 
         # Calculate the new number considering the adjusted grid width
         new_number = (effective_grid_width - 1 - column) * grid_height + (grid_height - 1 - row) +1
+        new_numbers[new_number].append(vp)
 
-        detail_number_param = vp.LookupParameter("Detail Number")
-        if detail_number_param and not detail_number_param.IsReadOnly:
-            detail_number_param.Set(str(new_number))
+        # Apply new numbers, marking duplicates with "DUP "
+        for new_number, vps in new_numbers.items():
+            for i, vp in enumerate(vps):
+                detail_number_param = vp.LookupParameter("Detail Number")
+                if detail_number_param and not detail_number_param.IsReadOnly:
+                    if i == 0:  # First viewport gets the new number
+                        detail_number_param.Set(str(new_number))
+                    else:  # Subsequent duplicates get "DUP " prefix, if not already present
+                        current_number = detail_number_param.AsString()
+                        # Check if "DUP " is already present at the beginning of the current number
+                        if not current_number.startswith("DUP "):
+                            detail_number_param.Set("DUP " + current_number)
+                        else:
+                            # If "DUP " is already present, we don't add another prefix
+                            # Optionally, you could update the logic here if you need to handle these cases differently
+                            pass
 
     t.Commit()
 
@@ -174,7 +192,7 @@ if isinstance(active_view, ViewSheet):
     # Define the grid size (6 cells wide by 5 cells high).
     grid_width = 6
     grid_height = 5
-    
+
     # Calculate the cell size in feet, subtracting gutter widths from the total sheet width.
     cell_width = inches_to_feet(.02734375) + (inches_to_feet(sheet_width_in_inches) - (left_gutter_width + right_gutter_width)) / grid_width
     # Calculate the cell height in feet, subtracting gutter heights from the total sheet height.
@@ -238,7 +256,7 @@ if isinstance(active_view, ViewSheet):
             output.print_md("**Grid Position:** Column {}, Row {}".format(grid_x , grid_y + 1))
 
     # Ask the user if the first column is used for sheet notes
-    # use_first_column = ask_user_first_column_notes()
+    use_first_column = ask_user_first_column_notes()
     
     draw_grid_lines(doc, active_view, grid_width, grid_height, cell_width, cell_height, left_gutter_width, right_gutter_width, bottom_gutter_height, top_gutter_height, line_type_name)
 
@@ -246,7 +264,7 @@ if isinstance(active_view, ViewSheet):
     viewports = [vp for vp in FilteredElementCollector(doc, active_view.Id).OfClass(Viewport)]
 
     # Renumber viewports
-    # renumber_viewports(doc, viewports, grid_width, grid_height, cell_width, cell_height, left_gutter_width, bottom_gutter_height, use_first_column)
+    renumber_viewports(doc, viewports, grid_width, grid_height, cell_width, cell_height, left_gutter_width, bottom_gutter_height, use_first_column)
 
 
 else:
