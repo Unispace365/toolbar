@@ -16,7 +16,16 @@ set pyrevit_command=pyrevit %command_name% %extension_type% %extension_name% "%r
 REM Print the command to the console
 echo Running command: %pyrevit_command%
 
-REM Run the command
+REM Install the pyrevit extension
 %pyrevit_command%
+
+REM Command to enable the extension
+set enable_command=pyrevit extensions enable %extension_name%
+
+REM Print the command to the console for enabling the extension
+echo Running command to enable extension: %enable_command%
+
+REM Run the command to enable the extension
+%enable_command%
 
 REM End of the script
