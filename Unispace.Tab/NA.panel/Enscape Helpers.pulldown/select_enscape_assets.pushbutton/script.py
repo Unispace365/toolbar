@@ -25,7 +25,7 @@ def get_elements_with_enscape_family_name(doc):
     # Iterate through the elements
     for element in collector:
         family = element.Symbol.Family
-        if family and family.Name.startswith('Enscape'):
+        if family and family.Name.startswith(('Enscape', 'Uni_Enscape')):
             enscape_elements.append(element.Id)
     
     return enscape_elements
