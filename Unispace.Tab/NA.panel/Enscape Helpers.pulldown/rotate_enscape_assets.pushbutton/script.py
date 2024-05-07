@@ -27,7 +27,7 @@ def get_elements_with_enscape_family_name(doc):
         family = element.Symbol.Family
         if family:
             family_name = family.Name
-            if family_name.startswith('Enscape') and ("Standing" in family_name or "Walking" in family_name or "Waitress" in family_name):
+            if family_name.startswith(('Enscape', 'Uni_Enscape')) and ("Standing" in family_name or "Walking" in family_name or "Waitress" in family_name):
                 enscape_elements.append(element)
     
     return enscape_elements
