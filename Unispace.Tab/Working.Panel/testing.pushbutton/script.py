@@ -9,7 +9,7 @@ clr.AddReference('RevitAPIUI')
 
 from System import Uri
 from System.Windows import Application, Window, Thickness, WindowStartupLocation, SizeToContent, TextWrapping
-from System.Windows.Controls import StackPanel, Image, Button, CheckBox, TextBlock, DockPanel, Dock
+from System.Windows.Controls import StackPanel, Image, Button, CheckBox, TextBlock, DockPanel, Dock, ComboBox, ComboBoxItem
 from System.Windows.Media.Imaging import BitmapImage
 from pyrevit import forms, script
 import os
@@ -19,7 +19,7 @@ output = script.get_output()
 
 class CustomDialog(Window):
     def __init__(self):
-        self.Title = 'Custom Popup'
+        self.Title = 'Auto Renumber Rooms'
         self.Width = 400
         self.MaxWidth = 400
         self.Height = 600
@@ -48,7 +48,7 @@ class CustomDialog(Window):
         
         # Text Block 2
         self.textblock2 = TextBlock()
-        self.textblock2.Text = "This is the second image:"
+        self.textblock2.Text = "Room numbering Strategy:"
         self.textblock2.Margin = Thickness(10)
         self.textblock2.MaxWidth = 380  # Set max width to ensure wrapping within window width
         self.textblock2.TextWrapping = TextWrapping.Wrap  # Enable text wrapping
@@ -65,16 +65,44 @@ class CustomDialog(Window):
         self.checkBox1 = CheckBox()
         self.checkBox1.Margin = Thickness(10)
         self.checkBox1.MaxWidth = 380  # Set max width to ensure wrapping within window width
-        self.checkBox1.Content = TextBlock(Text="Does this project have work on multiple floors? If yes the level number will be added to each room name.",
+        self.checkBox1.Content = TextBlock(Text="Does this project have work on multiple floors? If checked the level number will be added to each room name.",
                                            TextWrapping=TextWrapping.Wrap)
         self.main_stack.Children.Add(self.checkBox1)
         
         self.checkBox2 = CheckBox()
         self.checkBox2.Margin = Thickness(10)
         self.checkBox2.MaxWidth = 380  # Set max width to ensure wrapping within window width
-        self.checkBox2.Content = TextBlock(Text="Create the red 10' grid",
+        self.checkBox2.Content = TextBlock(Text="Create the red 10' grid. This should only be used for coordination and removed before printing.",
                                            TextWrapping=TextWrapping.Wrap)
         self.main_stack.Children.Add(self.checkBox2)
+        
+        self.checkBox3 = CheckBox()
+        self.checkBox3.Margin = Thickness(10)
+        self.checkBox3.MaxWidth = 380  # Set max width to ensure wrapping within window width
+        self.checkBox3.Content = TextBlock(Text="Center all room tags in their room.",
+                                           TextWrapping=TextWrapping.Wrap)
+        self.main_stack.Children.Add(self.checkBox3)
+        
+        # Dropdown for room numbering strategies
+        self.textblock3 = TextBlock()
+        self.textblock3.Text = "If multiple rooms fall within the same grid cell (e.g., closets within a larger room), the smaller rooms will receive the an additional alphanumeric designation. Select a strategy for numbering these duplicate rooms:"
+        self.textblock1.TextWrapping = TextWrapping.Wrap  # Enable text wrapping
+        self.textblock3.Margin = Thickness(10)
+        self.main_stack.Children.Add(self.textblock3)
+        
+        self.comboBox = ComboBox()
+        self.comboBox.Margin = Thickness(10)
+        
+        self.comboBoxItem1 = ComboBoxItem()
+        self.comboBoxItem1.Content = "Alphabetic (A, B, etc)"
+        self.comboBox.Items.Add(self.comboBoxItem1)
+        
+        self.comboBoxItem2 = ComboBoxItem()
+        self.comboBoxItem2.Content = "Numeric (.01, .02, etc)"
+        self.comboBox.Items.Add(self.comboBoxItem2)
+        
+        self.comboBox.SelectedIndex = 0  # Default to first item
+        self.main_stack.Children.Add(self.comboBox)
         
         # Button Panel
         self.button_panel = DockPanel()
@@ -116,7 +144,11 @@ result = dialog.ShowDialog()
 if result:
     option1 = dialog.checkBox1.IsChecked
     option2 = dialog.checkBox2.IsChecked
+    option3 = dialog.checkBox3.IsChecked
+    numbering_strategy = dialog.comboBox.SelectedItem.Content
     output.print_md("**Option 1:** %s" % option1)
     output.print_md("**Option 2:** %s" % option2)
+    output.print_md("**Option 3:** %s" % option3)
+    output.print_md("**Numbering Strategy:** %s" % numbering_strategy)
 else:
     output.print_md("**Dialog was cancelled or closed.**")
