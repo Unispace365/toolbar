@@ -81,6 +81,13 @@ class CustomDialog(Window):
                                            TextWrapping=TextWrapping.Wrap)
         self.main_stack.Children.Add(self.checkBox3)
         
+        self.checkBox4 = CheckBox()
+        self.checkBox4.Margin = Thickness(10)
+        self.checkBox4.MaxWidth = 380  # Set max width to ensure wrapping within window width
+        self.checkBox4.Content = TextBlock(Text="Only change rooms visible in the current view.",
+                                           TextWrapping=TextWrapping.Wrap)
+        self.main_stack.Children.Add(self.checkBox4)
+
         # Dropdown for room numbering strategies
         self.textblock3 = TextBlock()
         self.textblock3.Text = "If multiple rooms fall within the same grid cell (e.g., closets within a larger room), the smaller rooms will receive the an additional alphanumeric designation. Select a strategy for numbering these duplicate rooms:"
@@ -143,6 +150,7 @@ def show_dialog():
             "option1": dialog.checkBox1.IsChecked,
             "option2": dialog.checkBox2.IsChecked,
             "option3": dialog.checkBox3.IsChecked,
+            "option4": dialog.checkBox4.IsChecked,
             "numbering_strategy": dialog.comboBox.SelectedItem.Content
         }
     else:

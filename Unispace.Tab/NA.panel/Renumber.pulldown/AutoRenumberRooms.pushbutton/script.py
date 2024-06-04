@@ -14,10 +14,14 @@ import custom_dialog  # Import the custom dialog module
 # Get the current Revit document
 doc = __revit__.ActiveUIDocument.Document
 
-# Define a function to get all rooms in the project
-def get_all_rooms(doc):
-    # Create a filtered element collector for rooms
-    room_collector = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
+# Define a function to get all rooms in the project or current view
+def get_all_rooms(doc, current_view_rooms):
+    if current_view_rooms:
+        # Create a filtered element collector for rooms in the current view
+        room_collector = DB.FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
+    else:
+        # Create a filtered element collector for all rooms in the project
+        room_collector = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
     return room_collector.ToElements()
 
 # Define a function to filter out unplaced rooms
@@ -284,6 +288,7 @@ if __name__ == "__main__":
         multi_floor = result["option1"]
         create_red_grid = result["option2"]
         center_room_tags = result["option3"]
+        current_view_rooms = result["option4"]
         numbering_strategy = result["numbering_strategy"]
         # output.print_md("**Option 1:** %s" % result["option1"])
         # output.print_md("**Option 2:** %s" % result["option2"])
@@ -313,8 +318,8 @@ if __name__ == "__main__":
         # Draw the grid
         draw_grid(point_top_left, grid_spacing)
 
-    # Get all rooms in the project
-    all_rooms = get_all_rooms(doc)
+    # Get all rooms in the project or current view
+    all_rooms = get_all_rooms(doc, current_view_rooms)
     
     # Filter out unplaced rooms
     placed_rooms = filter_unplaced_rooms(all_rooms)
