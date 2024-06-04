@@ -84,7 +84,7 @@ class CustomDialog(Window):
         # Dropdown for room numbering strategies
         self.textblock3 = TextBlock()
         self.textblock3.Text = "If multiple rooms fall within the same grid cell (e.g., closets within a larger room), the smaller rooms will receive the an additional alphanumeric designation. Select a strategy for numbering these duplicate rooms:"
-        self.textblock1.TextWrapping = TextWrapping.Wrap  # Enable text wrapping
+        self.textblock3.TextWrapping = TextWrapping.Wrap  # Enable text wrapping
         self.textblock3.Margin = Thickness(10)
         self.main_stack.Children.Add(self.textblock3)
         
